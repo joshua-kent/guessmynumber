@@ -1,26 +1,34 @@
-#include <iostream>
-#include <cctype>
+#include <iostream> // cout
+#include <cctype> // tolower
+#include <sstream> // stringstream
+#include <string> // string
 
 #include "version.hpp"
+#ifndef MISC_H
+#include "misc.hpp"
+#endif
 
 using namespace std;
 
 // user selection when the program starts
-string start() {
-    cout << "Welcome to Guess My Number, version " << GMN_VERSION << string(2, '\n')
-         << "What do you want to do?" << endl << "Options:" << endl
-         << "   Play" << endl
-         << "   Help" << endl
-         << "   Version" << endl
-         << "   Quit" << string(2, '\n')
-         << ":";
+int start() {
+    stringstream welcome_string;
+    welcome_string << "Welcome to Guess My Number, version " << GMN_VERSION;
+
+    misc::query start_query;
+    int ans = start_query.new_query(welcome_string.str(),
+                                    {
+                                        "Play",
+                                        "Help",
+                                        "Version",
+                                        "Quit"
+                                    },
+                                    {
+                                        "play",
+                                        "help",
+                                        "version",
+                                        "quit"
+                                    });
     
-    string user_input;
-    cin >> user_input;
-
-    for (char &c : user_input) {
-        c = tolower(c);
-    }
-
-    return user_input;
+    return ans;
 }
