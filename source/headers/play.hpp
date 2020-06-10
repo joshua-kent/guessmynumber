@@ -35,9 +35,10 @@ int play() {
     switch (difficulty) {
         case 1: max = 10; break;
         case 2: max = 100; break;
-        case 3: max = 1000; break;
-        case 4: max = 1000000; break;
-        case 5: return 0;
+        case 3: max = 500; break;
+        case 4: max = 1000; break;
+        case 5: max = 1000000; break;
+        case 6: return 0;
         default: return play(); // add notice that the value was not specified, maybe a timer
     }
 
@@ -46,6 +47,7 @@ int play() {
     */
 
     while (true) {
+        system("cls");
         cout << "Game coming soon!" << endl << "Max value specified: "
              << max << endl;
         break;

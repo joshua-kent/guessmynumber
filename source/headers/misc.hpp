@@ -38,7 +38,7 @@ namespace misc {
 
         for (int i = 0; i < opts.size(); i++) {
             if (tab_opts) {
-                cout << "    " << opts[i] << endl;
+                cout << "    - " << opts[i] << endl;
             } else {
                 cout << opts[i] << endl;
             }
