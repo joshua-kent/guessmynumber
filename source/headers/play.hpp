@@ -1,9 +1,10 @@
+#ifndef PLAY_H
+#define PLAY_H
+
 #include <iostream>
 #include <cstdlib>
 
-#ifndef MISC_H
 #include "misc.hpp"
-#endif
 
 using namespace std;
 
@@ -55,3 +56,5 @@ int play() {
 
     return 0;
 }
+
+#endif

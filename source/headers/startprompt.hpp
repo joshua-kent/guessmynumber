@@ -1,12 +1,13 @@
+#ifndef START_PROMPT_H
+#define START_PROMPT_H
+
 #include <iostream> // cout
 #include <cctype> // tolower
 #include <sstream> // stringstream
 #include <string> // string
 
 #include "version.hpp"
-#ifndef MISC_H
 #include "misc.hpp"
-#endif
 
 using namespace std;
 
@@ -32,3 +33,5 @@ int start() {
     
     return ans;
 }
+
+#endif

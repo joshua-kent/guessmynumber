@@ -1,5 +1,6 @@
 /* miscellaneous definitions */
 
+#ifndef MISC_H
 #define MISC_H
 
 #include <iostream>
@@ -68,3 +69,5 @@ namespace misc {
         return input_number;
     }
 }
+
+#endif
