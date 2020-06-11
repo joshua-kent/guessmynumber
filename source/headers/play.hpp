@@ -12,7 +12,7 @@ using namespace std;
 
 // main game
 int play() {
-    system("cls");
+    clear();
     
     misc::query difficulty_query;
     int difficulty = difficulty_query.new_query("What difficulty do you want?",
