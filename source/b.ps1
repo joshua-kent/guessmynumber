@@ -34,36 +34,25 @@ function Build {
     
     if ($BuildLocation -eq $null) {
         if ($OS -eq "win64") {
-            $BuildLocation_ = $TempBuildLoc_WIN
+            $BuildLocation = $TempBuildLoc_WIN
         } elseif ($OS -eq "linux") {
-            $BuildLocation_ = $TempBuildLoc_LNX
-        } else {
-            $BuildLocation_ = $null
+            $BuildLocation = $TempBuildLoc_LNX
         }
-    } else {
-        $BuildLocation_ = $BuildLocation
     }
 
     if ($OS -eq "win64") {
-        Write-Output "Building GuessMyNumber for Windows 64-bit at $BuildLocation_..."
+        Write-Output "Building GuessMyNumber for Windows 64-bit at $BuildLocation..."
     } elseif ($OS -eq "linux") {
-        Write-Output "Building GuessMyNumber for Linux at $BuildLocation_..."
+        Write-Output "Building GuessMyNumber for Linux at $BuildLocation..."
     }
     
     try {
-        if ($BuildLocation -eq $null) { # if parameter not set, build to default location
-            if ($OS -eq "win64") {
-                g++ $SourceFile_WIN
-            } elseif ($OS -eq "linux") {
-                Invoke-Expression "$LinuxCommand g++ $SourceFile_LNX"
-            }
-        } else {
-            if ($OS -eq "win64") {
-                g++ $SourceFile_WIN -o $BuildLocation
-            } elseif ($OS -eq "linux") {
-                Invoke-Expression "$LinuxCommand g++ $SourceFile_LNX -o $BuildLocation"
-            }
+        if ($OS -eq "win64") {
+            g++ $SourceFile_WIN -o $BuildLocation
+        } elseif ($OS -eq "linux") {
+            Invoke-Expression "$LinuxCommand g++ $SourceFile_LNX -o $BuildLocation"
         }
+
         Write-Output "Build complete."
     }
     catch {}
