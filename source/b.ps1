@@ -1,3 +1,7 @@
+# Builds the program from source code
+# Uses g++ compiler by default, and compiles
+# to Windows and Linux as an executable.
+
 param([switch] $exec, [switch] $main, [switch] $temp, [switch] $a, [switch] $ae)
 
 $LinuxCommand = "wsl -e" # executing in WSL
