@@ -1,7 +1,22 @@
 param([switch] $exec, [switch] $main, [switch] $temp, [switch] $a, [switch] $ae)
+
+$LinuxCommand = "wsl -e" # executing in WSL
+$LinuxConvertPath = "wsl wslpath -a"
+
+$CurrentFile_WIN = $PSScriptRoot
+$CurrentFile_WIN_comp = $CurrentFile_WIN.Replace("\", "/")
+$CurrentFile_LNX = Invoke-Expression "$LinuxConvertPath $CurrentFile_WIN_comp"
+$SourceFile_WIN = [string]::format("{0}\main.cpp", $CurrentFile_WIN)
+$SourceFile_LNX = [string]::format("{0}/main.cpp", $CurrentFile_LNX)
+$TempBuildLoc_WIN = [string]::format("{0}\a.exe", $CurrentFile_WIN)
+$TempBuildLoc_LNX = [string]::format("{0}/a.out", $CurrentFile_LNX)
+$MainBuildLoc_WIN = [string]::format("{0}\..\GMN_win64.exe", $CurrentFile_WIN)
+$MainBuildLoc_LNX = [string]::format("{0}/../GMN_linux", $CurrentFile_LNX)
+
+$WaitTime = 1
 # exec - executes after building
-# main - builds to GuessMyNumber/game.exe
-# temp - builds to GuessMyNumber/source/a.exe
+# main - builds to GuessMyNumber/GMN_win64.exe and /GMN_linux
+# temp - builds to GuessMyNumber/source/a.exe and /a.out
 # a - builds to all locations
 # ae - builds to all locations and executes
 
@@ -14,46 +29,72 @@ if ($a -eq $true) {
     $temp = $true
 }
 
-
-$SourceFile = [string]::format("{0}\Documents\vscode\cpp\GuessMyNumber\source\main.cpp", $home)
-$TempBuildLoc = [string]::format("{0}\Documents\vscode\cpp\GuessMyNumber\source\a.exe", $home)
-$MainBuildLoc = [string]::format("{0}\Documents\vscode\cpp\GuessMyNumber\game.exe", $home)
-
-$WaitTime = 1
-
 function Build {
-    param($BuildLocation = $null)
-    Write-Output "Building GuessMyNumber at $BuildLocation..."
+    param($BuildLocation = $null, $OS = "win64") # when BuildLocation is null, build to temporary location
+    
+    if ($BuildLocation -eq $null) {
+        if ($OS -eq "win64") {
+            $BuildLocation_ = $TempBuildLoc_WIN
+        } elseif ($OS -eq "linux") {
+            $BuildLocation_ = $TempBuildLoc_LNX
+        } else {
+            $BuildLocation_ = $null
+        }
+    } else {
+        $BuildLocation_ = $BuildLocation
+    }
+
+    if ($OS -eq "win64") {
+        Write-Output "Building GuessMyNumber for Windows 64-bit at $BuildLocation_..."
+    } elseif ($OS -eq "linux") {
+        Write-Output "Building GuessMyNumber for Linux at $BuildLocation_..."
+    }
+    
     try {
         if ($BuildLocation -eq $null) { # if parameter not set, build to default location
-            g++ $SourceFile
+            if ($OS -eq "win64") {
+                g++ $SourceFile_WIN
+            } elseif ($OS -eq "linux") {
+                Invoke-Expression "$LinuxCommand g++ $SourceFile_LNX"
+            }
         } else {
-            g++ $SourceFile -o $BuildLocation
+            if ($OS -eq "win64") {
+                g++ $SourceFile_WIN -o $BuildLocation
+            } elseif ($OS -eq "linux") {
+                Invoke-Expression "$LinuxCommand g++ $SourceFile_LNX -o $BuildLocation"
+            }
         }
-
-        Write-Output "Successfully built."
+        Write-Output "Build complete."
     }
     catch {}
 }
 
 if ($main -eq $true) {
-    Build $MainBuildLoc
+    Build $MainBuildLoc_WIN # build to main location for windows
+    Write-Output ""
+    Build $MainBuildLoc_LNX "linux" # build to main location for linux
     Write-Output ""
     
     if ($temp -eq $true) {
-        Build $TempBuildLoc
+        Build # build to temp location for windows
+        Write-Output ""
+        Build -OS "linux" # build to temp location for linux
     }
 } else {
-    Build $TempBuildLoc
+    Build # build to temp location for windows
+    Write-Output ""
+    Build -OS "linux" # build to temp location for linux
 }
 
 if ($exec -eq $true) {
     Write-Output ""
     Write-Output "Executing application..."
+
     Start-Sleep -s $WaitTime
+    
     if ($main -eq $true) {
-        Invoke-Expression $MainBuildLoc
+        Invoke-Expression $MainBuildLoc_WIN
     } elseif ($temp -eq $true) {
-        Invoke-Expression $TempBuildLoc
+        Invoke-Expression $TempBuildLoc_WIN
     }
 }

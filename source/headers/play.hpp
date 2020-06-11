@@ -5,6 +5,7 @@
 #include <cstdlib>
 
 #include "misc.hpp"
+#include "clear.hpp"
 
 using namespace std;
 
@@ -48,7 +49,7 @@ int play() {
     */
 
     while (true) {
-        system("cls");
+        clear();
         cout << "Game coming soon!" << endl << "Max value specified: "
              << max << endl;
         break;

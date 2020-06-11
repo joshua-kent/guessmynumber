@@ -11,12 +11,20 @@ Guess My Number (console version)
 #include "headers/helpprompt.hpp"
 #include "headers/play.hpp"
 #include "headers/version.hpp"
+#include "headers/clear.hpp"
 
 using namespace std;
 
 
 int main() {
-    system("cls");
+    // check Operating System
+    #ifndef _WIN64
+    #ifndef __linux__
+    cout << "This program only runs on Windows 64-bit and Linux." << endl;
+    #endif
+    #endif
+
+    clear();
 
     int ans = start(); // initiate start menu, get response
 
