@@ -86,8 +86,8 @@ if ($exec -eq $true) {
     Start-Sleep -s $WaitTime
     
     if ($main -eq $true) {
-        Invoke-Expression $MainBuildLoc_WIN
+        Invoke-Expression ".\$MainBuildLoc_WIN"
     } elseif ($temp -eq $true) {
-        Invoke-Expression $TempBuildLoc_WIN
+        Invoke-Expression ".\$TempBuildLoc_WIN"
     }
 }

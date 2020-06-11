@@ -11,7 +11,6 @@ Guess My Number (console version)
 #include "headers/helpprompt.hpp"
 #include "headers/play.hpp"
 #include "headers/version.hpp"
-#include "headers/clear.hpp"
 
 using namespace std;
 
@@ -24,7 +23,7 @@ int main() {
     #endif
     #endif
 
-    clear();
+    misc::clear();
 
     int ans = start(); // initiate start menu, get response
 

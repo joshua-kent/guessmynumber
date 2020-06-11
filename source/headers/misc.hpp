@@ -8,22 +8,32 @@
 #include <cstdarg>
 #include <cctype>
 #include <vector>
+#include <thread>
+#include <chrono>
+#include <limits>
 
 using namespace std;
 
+
 namespace misc {
 
+    class query;
+    void clear_cin();
+    void sleep(unsigned int);
+    void petc(unsigned int);
+    void clear();
+
+    // query class w/ functions
     class query {
         public:
-            int new_query(string, vector<string>, vector<string>,
-                             int, int, int, bool, bool);
+            int new_query(string, vector<string> = {}, vector<string> = {},
+                          bool = true);
             string input;
-            int input_number;
+            int input_number = 0;
     };
 
     int query::new_query(string start, vector<string> opts, vector<string> key,
-                         int f_space = 2, int s_space = 1, int t_space = 1,
-                         bool tab_opts = true, bool clear = false) {
+                         bool say_options) {
 
         /*
         key is what must be typed to get a response, should
@@ -32,21 +42,19 @@ namespace misc {
         
         string user_input;
 
-        if (clear) { system("cls"); } // clears if clear is true
-
-        cout << start << string(f_space, '\n'); // output start, add specified new lines
-        cout << "What do you want to do?" << string(t_space, '\n');
-
-        for (int i = 0; i < opts.size(); i++) {
-            if (tab_opts) {
-                cout << "    - " << opts[i] << endl;
-            } else {
-                cout << opts[i] << endl;
-            }
+        cout << start << string(2, '\n'); // output start, add specified new lines
+        
+        if (say_options) {
+            cout << "Options:\n";
         }
 
-        cout << string(s_space, '\n') << ": ";
+        for (int i = 0; i < opts.size(); i++) {
+            cout << "    - " << opts[i] << endl;
+        }
+
+        cout << "\n: ";
         cin >> user_input;
+        clear_cin();
 
         for (char &c : user_input) {
             c = tolower(c);
@@ -68,6 +76,41 @@ namespace misc {
 
         return input_number;
     }
+
+    // clear cin
+    void clear_cin() {
+        if (!cin) {
+            cin.clear();
+        }
+
+        if (cin.peek() == '\n') {
+            cin.get();
+            return;
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    // sleep function
+    void sleep(unsigned int ms = 2000) {
+        this_thread::sleep_for(std::chrono::milliseconds(ms));
+    }
+
+    // press enter to continue function
+    void petc(unsigned int sleep_time = 2000) {
+        cout << "\nPress enter to continue...";
+        clear_cin();
+    }
+
+    // clear function
+    void clear() {
+        #ifdef _WIN64
+        system("cls"); // compatibility with both Command Line and Powershell
+        #elif __linux__
+        system("clear"); // compatible with Bash
+        #endif
+    }
+
 }
 
 #endif

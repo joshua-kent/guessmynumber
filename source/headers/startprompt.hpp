@@ -30,7 +30,6 @@ int start() {
                                         "version",
                                         "quit"
                                     });
-    
     return ans;
 }
 
