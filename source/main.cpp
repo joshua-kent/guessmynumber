@@ -12,14 +12,12 @@ Guess My Number (console version)
 #include "headers/play.hpp"
 #include "headers/version.hpp"
 
-using namespace std;
-
 
 int main() {
     // check Operating System
     #ifndef _WIN64
     #ifndef __linux__
-    cout << "This program only runs on Windows 64-bit and Linux." << endl;
+    std::cout << "This program only runs on Windows 64-bit and Linux." << std::endl;
     #endif
     #endif
 
@@ -34,7 +32,7 @@ int main() {
         case 2: // Help
             return help();
         case 3: // Version
-            cout << GMN_VERSION << endl;
+            std::cout << GMN_VERSION << std::endl;
             return main();
         case 4: // Exit
             return 0;

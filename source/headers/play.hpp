@@ -7,8 +7,6 @@
 
 #include "misc.hpp"
 
-using namespace std;
-
 
 // main game
 int play() {
@@ -50,48 +48,48 @@ int play() {
 
     srand((unsigned int) time(NULL)); // set random seed to time (for pseudo-random)
     int computer_number = (rand() % max) + 1;
-    string computer_number_str = to_string(computer_number);
+    std::string computer_number_str = std::to_string(computer_number);
     
     int attempts = 0; // how many times the player has tried
     misc::query ask_for_user_guess;
-    stringstream ask;
+    std::stringstream ask;
     while (true) {
         misc::clear();
 
         // ask user to guess
         ask << "Guess my number!\nAttempts: " << attempts;
         ask_for_user_guess.new_query(ask.str(), {}, {}, false);
-        string user_answer = ask_for_user_guess.input;
+        std::string user_answer = ask_for_user_guess.input;
 
         if (user_answer == "quit") {
             return 0;
         }
 
         try {
-            int user_answer_int = stoi(user_answer); // if cannot convert to int, go to catch
+            int user_answer_int = std::stoi(user_answer); // if cannot convert to int, go to catch
 
             if (user_answer_int == computer_number) {
                 attempts++;
-                cout << "Congratulations! You guessed after " << attempts << " attempts!" << endl;
+                std::cout << "Congratulations! You guessed after " << attempts << " attempts!" << std::endl;
                 misc::sleep(); // add new header for what to do after completion
                 return 0;
             } else if (user_answer_int > max) {
-                cout << "You guessed higher than the maximum value (" << max << ")!" << endl;
+                std::cout << "You guessed higher than the maximum value (" << max << ")!" << std::endl;
                 misc::petc();
             } else if (user_answer_int < 1) {
-                cout << "You guessed lower than the minimum value (1)!" << endl;
+                std::cout << "You guessed lower than the minimum value (1)!" << std::endl;
                 misc::petc();
             } else if (user_answer_int > computer_number) {
                 attempts++;
-                cout << "Your answer is greater than the computer's number." << endl;
+                std::cout << "Your answer is greater than the computer's number." << std::endl;
                 misc::petc();
             } else if (user_answer_int < computer_number) {
                 attempts++;
-                cout << "Your answer is less than the computer's number." << endl;
+                std::cout << "Your answer is less than the computer's number." << std::endl;
                 misc::petc();
             }
         } catch (...) {
-            cout << "Incorrect input." << endl;
+            std::cout << "Incorrect input." << std::endl;
             misc::petc();
         }
 

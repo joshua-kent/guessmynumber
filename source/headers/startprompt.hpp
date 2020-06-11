@@ -9,11 +9,10 @@
 #include "version.hpp"
 #include "misc.hpp"
 
-using namespace std;
 
 // user selection when the program starts
 int start() {
-    stringstream welcome_string;
+    std::stringstream welcome_string;
     welcome_string << "Welcome to Guess My Number, version " << GMN_VERSION;
 
     misc::query start_query;
