@@ -61,5 +61,5 @@ if ($exec -eq $true) {
 
     Start-Sleep -millisecond $WaitTime
     
-    Invoke-Expression ".\$MainBuildLoc_WIN"
+    Invoke-Expression ".\$BuildLoc_WIN"
 }
