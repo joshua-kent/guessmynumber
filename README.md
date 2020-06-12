@@ -39,7 +39,7 @@ Go to the file it was installed and execute *GMN_win64.exe* (64-bit).
 
 ```powershell
 cd guessmynumber
-./GMN_win64.exe
+.\GMN_win64.exe
 ```
 
 How to rebuild
