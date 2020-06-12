@@ -32,7 +32,8 @@ int main() {
         case 1: // Play
             return play();
         case 2: // Help
-            return help();
+            help();
+            return main();
         case 3: // Version
             misc::clear();
             std::cout << "Guess My Number " << GMN_VERSION << std::endl;
