@@ -2,7 +2,7 @@
 ---------------------------------
 Guess My Number (console version)
 ---------------------------------
-*/
+ */
 
 #include <iostream> // cout
 #include <cstdlib> // system
@@ -18,6 +18,7 @@ int main() {
     #ifndef _WIN64
     #ifndef __linux__
     std::cout << "This program only runs on Windows 64-bit and Linux." << std::endl;
+    return 0;
     #endif
     #endif
 

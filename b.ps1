@@ -1,5 +1,10 @@
+# This program is designed to run on Windows,
+# but also creates a Linux version by utilising
+# Windows Subsystem for Linux when compiling.
+
 # Builds the program from source code
-# Uses g++ compiler by default, and compiles
+# Uses g++ compiler by default (edit Build
+# function to change), and compiles
 # to Windows and Linux as an executable.
 
 param([switch] $exec, [switch] $e)
@@ -36,6 +41,7 @@ function Build {
         Write-Output "Building GuessMyNumber for Linux at $BuildLocation..."
     }
     
+    # TO USE ANOTHER COMPILER, EDIT THE CONTENTS OF THESE IF STATEMENTS
     try {
         if ($OS -eq "win64") {
             g++ $SourceFile_WIN -o $BuildLocation
