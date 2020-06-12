@@ -7,17 +7,20 @@
 # function to change), and compiles
 # to Windows and Linux as an executable.
 
-param([switch] $exec, [switch] $e)
+param([switch] $exec, [switch] $e, [switch] $wsl)
 # exec - executes after building (-e)
 
-$LinuxCommand = "wsl -e" # executing in WSL
+if ($wsl -eq $true) {
+    $LinuxCommand = "wsl -e" # executing in WSL
+}
 
 $SourceFile_WIN = "source\main.cpp"
 $SourceFile_LNX = $SourceFile_WIN.Replace("\", "/")
 $BuildLoc_WIN = "GMN_win64.exe"
 $BuildLoc_LNX = "GMN_linux"
 
-$WaitTime = 1000 # wait time when executing in milliseconds
+$BuildWaitTime = 5000 # wait time after building in milliseconds
+$ExecWaitTime = 1000 # wait time when executing in milliseconds
 
 if ($e -eq $true) {
     $exec = $true # -e is shorthand for -exec
@@ -57,15 +60,19 @@ function Build {
 # MAIN BUILD:
 Build $BuildLoc_WIN # build to main location for windows
 Write-Output ""
-Build $BuildLoc_LNX "linux" # build to main location for linux
-Write-Output ""
+if ($wsl -eq $true) {
+    Build $BuildLoc_LNX "linux" # build to main location for linux
+    Write-Output ""
+}
+
+Start-Sleep -millisecond $BuildWaitTime
 
 # EXECUTE:
 if ($exec -eq $true) {
     Write-Output ""
     Write-Output "Executing application..."
 
-    Start-Sleep -millisecond $WaitTime
+    Start-Sleep -millisecond $ExecWaitTime
     
     Invoke-Expression ".\$BuildLoc_WIN"
 }
