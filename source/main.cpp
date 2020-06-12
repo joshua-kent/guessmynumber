@@ -11,6 +11,7 @@ Guess My Number (console version)
 #include "headers/helpprompt.hpp"
 #include "headers/play.hpp"
 #include "headers/version.hpp"
+#include "headers/misc.hpp"
 
 
 int main() {
@@ -33,7 +34,15 @@ int main() {
         case 2: // Help
             return help();
         case 3: // Version
-            std::cout << GMN_VERSION << std::endl;
+            misc::clear();
+            std::cout << "Guess My Number " << GMN_VERSION << std::endl;
+            std::cout << "Last updated " << UPDATE_DATE << std::endl;
+            std::cout << "\nWritten by " << GMN_AUTHOR << std::endl;
+            std::cout << "See the official repository page at: "
+                      << "https://github.com/joshua-kent/guessmynumber"
+                      << std::endl;
+            
+            misc::petc(); // press enter to continue
             return main();
         case 4: // Exit
             return 0;

@@ -3,8 +3,18 @@
 
 #include <iostream>
 
+#include "misc.hpp"
+
 int help() {
-   return 0; 
+   misc::clear();
+
+   std::cout << "Help" << std::endl
+             << "----\n\n"
+             << "Welcome to Guess My Number!" << std::endl
+             << "This";
+
+
+   return 0;
 }
 
 #endif
