@@ -1,4 +1,5 @@
-# Guess My Number
+Guess My Number
+
 
 This is a program where you guess the computer's number!
 
@@ -14,7 +15,7 @@ the terminal (Linux) or command line using git.
 #### Git
 
 ```bash
-git clone Https://github.com/joshua-kent/guessmynumber.git
+git clone https://github.com/joshua-kent/guessmynumber.git
 ```
 
 If you cannot do this, you can either install git and try again,
@@ -42,10 +43,11 @@ cd guessmynumber
 
 If you wish to edit any of the source code, you will probably wish
 to recompile it. A 'build.ps1' PowerShell file is included, which
-allows you to compile source/main.cpp to GMN_win64.exe and GMN_linux.
+allows you to compile source/main.cpp to *GMN_win64.exe* and
+*GMN_linux*.
 
-Compiling only currently works from Windows
--------------------------------------------
+
+> Compiling only currently works from Windows
 
 ### Compile to Windows only
 
@@ -61,7 +63,7 @@ Compiling only currently works from Windows
 
 ### Additional options
 
-You can also add the '-e' or '-exec' command to execute the /Windows/
+You can also add the '-e' or '-exec' command to execute the **Windows**
 executable after compiling.
 
 ```bash
