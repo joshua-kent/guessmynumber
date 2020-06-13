@@ -56,8 +56,11 @@ int play() {
     while (true) {
         misc::clear();
 
+        // set up heading
+        ask << "Guess my number! " << "(1 - " << max << ")"
+        << "\nAttempts: " << attempts;
+        
         // ask user to guess
-        ask << "Guess my number!\nAttempts: " << attempts;
         ask_for_user_guess.new_query(ask.str(), {}, {}, false);
         std::string user_answer = ask_for_user_guess.input;
 
