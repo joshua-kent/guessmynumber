@@ -15,9 +15,6 @@
 SOURCEFILE="./source/main.cpp" 
 BUILDLOCATION="GMN_linux"
 
-BUILDWAITTIME=5
-EXECWAITTIME=1
-
 function Build {
     
     # $1 - build location
@@ -37,4 +34,3 @@ function Build {
 # MAIN BUILD:
 Build
 echo ""
-sleep $BUILDWAITTIME
