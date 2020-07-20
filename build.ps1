@@ -19,8 +19,6 @@ $SourceFile_LNX = $SourceFile_WIN.Replace("\", "/")
 $BuildLoc_WIN = "GMN_win64.exe"
 $BuildLoc_LNX = "GMN_linux"
 
-$BuildWaitTime = 5000 # wait time after building in milliseconds
-$ExecWaitTime = 1000 # wait time when executing in milliseconds
 
 if ($e -eq $true) {
     $exec = $true # -e is shorthand for -exec
@@ -65,14 +63,11 @@ if ($wsl -eq $true) {
     Write-Output ""
 }
 
-Start-Sleep -millisecond $BuildWaitTime
 
 # EXECUTE:
 if ($exec -eq $true) {
     Write-Output ""
     Write-Output "Executing application..."
-
-    Start-Sleep -millisecond $ExecWaitTime
     
     Invoke-Expression ".\$BuildLoc_WIN"
 }
