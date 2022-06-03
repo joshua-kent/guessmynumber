@@ -15,14 +15,6 @@ Guess My Number (console version)
 
 
 int main() {
-    // check Operating System
-    #ifndef _WIN64
-    #ifndef __linux__
-    std::cout << "This program only runs on Windows 64-bit and Linux." << std::endl;
-    return 0;
-    #endif
-    #endif
-
     misc::clear();
 
     int ans = start(); // initiate start menu, get response
@@ -36,9 +28,9 @@ int main() {
             return main();
         case 3: // Version
             misc::clear();
-            std::cout << "Guess My Number " << GMN_VERSION << std::endl;
-            std::cout << "Last updated " << UPDATE_DATE << std::endl;
-            std::cout << "\nWritten by " << GMN_AUTHOR << std::endl;
+            std::cout << "Guess My Number " << GMN_VERSION << '\n';
+            std::cout << "Last updated " << UPDATE_DATE << '\n';
+            std::cout << "\nWritten by " << GMN_AUTHOR << '\n';
             std::cout << "See the official repository page at: "
                       << "https://github.com/joshua-kent/guessmynumber"
                       << std::endl;

@@ -64,11 +64,11 @@ namespace misc {
         std::cout << start << std::string(2, '\n'); // output start, add specified new lines
         
         if (say_options) {
-            std::cout << "Options:" << std::endl;
+            std::cout << "Options:" << '\n';
         }
 
         for (int i = 0; i < opts.size(); i++) {
-            std::cout << "    - " << opts[i] << std::endl;
+            std::cout << "    - " << opts[i] << '\n';
         }
 
         std::cout << "\n: ";
