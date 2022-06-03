@@ -16,7 +16,7 @@
 namespace misc {
 
     class query;
-    void ClearCin();
+    void clearCin();
     void sleep(unsigned int);
     void petc(unsigned int);
     void clear();
@@ -24,12 +24,13 @@ namespace misc {
     // Creates a new query instance, which can be used to
     // create new queries and retrieve the user's input
     // easily.
+    //TODO: move query to its own header
     class Query {
         public:
             std::string input, question, answer;
             std::vector<std::string> options;
             std::vector<std::string> keys;
-            int Say(bool, bool);
+            int Say(bool, bool, bool);
             Query(std::string, std::vector<std::string>, std::vector<std::string>);
         private:
             std::string mInput;
@@ -45,7 +46,7 @@ namespace misc {
         keys = k;
     }
 
-    int Query::Say(bool sayOptions = true, bool allowShortcuts = false) {
+    int Query::Say(bool sayOptions = true, bool allowShortcuts = false, bool allowIndices = true) {
         // say question
         std::cout << question << "\n\n";
         
@@ -67,6 +68,17 @@ namespace misc {
         if (options.empty()) {
             answer = input;
             return 0;
+        }
+
+        // checks if input is an index; if it is, then answer is set to relevant index
+        if (allowIndices) {
+            try {
+                int _input = std::stoi(input);
+                if (_input > 0 && _input <= keys.size()) {
+                    answer = keys.at(_input - 1);
+                    return 0;
+                }
+            } catch (std::invalid_argument) {}
         }
 
         // converts input and options attributes to lowercase; uses shortcuts if on
@@ -114,10 +126,11 @@ namespace misc {
     }
 
     // Clears std::cin buffer
-    void ClearCin() {
+    void clearCin() {
         if (!std::cin) {
             std::cin.clear();
         }
+
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
@@ -128,8 +141,9 @@ namespace misc {
 
     // Displays a 'Press enter to continue' message in terminal.
     void petc() {
-        ClearCin();
+        clearCin();
         std::cout << "\nPress enter to continue...";
+        std::cin.get();
     }
 
     // Clears the terminal screen

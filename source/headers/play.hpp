@@ -11,6 +11,15 @@
 
 // main game
 int play() {
+    int max, guess;
+    int min = 1;
+    int attempts = 0;
+    std::stringstream ask;
+    // set random seed to time (for pseudo-random)
+    srand((unsigned int) time(NULL));
+    int correctNumber;
+    bool isValid = true;
+
     misc::clear();
     
     misc::Query DifficultyQuery("What difficulty do you want?",
@@ -20,7 +29,7 @@ int play() {
                                     "Medium (1 - 500)",
                                     "Difficult (1 - 1,000)",
                                     "Insane (1 - 1,000,000)",
-                                    "Exit"
+                                    "Quit"
                                 },
                                 {
                                     "easiest",
@@ -28,12 +37,12 @@ int play() {
                                     "medium",
                                     "difficult",
                                     "insane",
-                                    "exit"
+                                    "quit"
                                 });
     DifficultyQuery.Say();
     std::string difficulty = DifficultyQuery.answer;
-    int min = 1;
-    int max;
+
+    // get max value from difficulty and set computer's random number accordingly
     if (difficulty == "easiest") {
         max = 10;
     } else if (difficulty == "easy") {
@@ -44,61 +53,56 @@ int play() {
         max = 1000;
     } else if (difficulty == "insane") {
         max = 1000000;
-    } else if (difficulty == "exit") {
+    } else if (difficulty == "quit" || difficulty == "exit") {
         return 0;
     } else {
         return play(); //TODO: add notice that the value was not specified, maybe a timer
     }
+    correctNumber = (rand() % max) + 1;
 
     /*
     --- MAIN GAME LOOP ---
      */
-
-    srand((unsigned int) time(NULL)); // set random seed to time (for pseudo-random)
-    int correctNumber = (rand() % max) + 1;
     
-    int attempts = 0; // how many times the player has tried
-    std::stringstream ask;
     while (true) {
+        isValid = true; // clears isValid (if it was set false in last iteration)
         misc::clear();
 
-        // set up heading
+        // ask user to guess
         ask << "Guess my number! " << "(1 - " << max << ")"
         << "\nAttempts: " << attempts;
-        
-        // ask user to guess
         misc::Query UserGuess(ask.str());
         UserGuess.Say(false);
 
-        if (UserGuess.answer == "quit") {
+        if (UserGuess.answer == "quit" || UserGuess.answer == "exit") {
             return 0;
         }
 
-        //try {
-            // if cannot convert to int, go to catch
-        //int guess = std::stoi(UserGuess.answer);
-        int guess = 5;
+        try {
+            guess = std::stoi(UserGuess.answer);
+        } catch (std::invalid_argument) {
+            std::cout << "Incorrect input." << '\n';
+            isValid = false;
+        }
 
+        if (isValid) {
             if (guess == correctNumber) {
                 attempts++;
-                std::cout << "Congratulations! You guessed after " << attempts << " attempts!" << std::endl;
-                misc::sleep(); // add new header for what to do after completion
+                std::cout << "Congratulations! You guessed after " << attempts << " attempts!" << '\n';
+                misc::sleep(); //TODO: add new header for what to do after completion
                 return 0;
             } else if (guess > max) {
-                std::cout << "You guessed higher than the maximum value (" << max << ")!" << std::endl;
+                std::cout << "You guessed higher than the maximum value (" << max << ")!" << '\n';
             } else if (guess < 1) {
-                std::cout << "You guessed lower than the minimum value (1)!" << std::endl;
+                std::cout << "You guessed lower than the minimum value (1)!" << '\n';
             } else if (guess > correctNumber) {
                 attempts++;
-                std::cout << "Your answer is greater than the computer's number." << std::endl;
+                std::cout << "Your answer is greater than the computer's number." << '\n';
             } else if (guess < correctNumber) {
                 attempts++;
-                std::cout << "Your answer is less than the computer's number." << std::endl;
+                std::cout << "Your answer is less than the computer's number." << '\n';
             }
-            /*
-        } catch (...) {
-            std::cout << "Incorrect input." << std::endl;
-        }*/
+        }
         misc::petc();
 
         ask.str(""); // clears 'ask' stream to empty string
@@ -109,5 +113,3 @@ int play() {
 }
 
 #endif
-
-int a = play();
