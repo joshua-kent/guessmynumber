@@ -24,80 +24,85 @@ namespace misc {
     // Creates a new query instance, which can be used to
     // create new queries and retrieve the user's input
     // easily.
-    class query {
+    class Query {
         public:
-            int new_query(std::string, std::vector<std::string>, std::vector<std::string> = {},
-                          bool = true);
-            std::string input;
-            int input_number = 0;
+            std::string input, question, answer;
+            std::vector<std::string> options;
+            std::vector<std::string> keys;
+            void Say(bool, bool);
+            Query(std::string, std::vector<std::string>, std::vector<std::string>);
+        private:
+            std::string mInput;
+            std::vector<std::string> mOptions;
+            std::vector<std::string> mKeys;
     };
 
-    /*
-    Creates a new query for the user.
+    Query::Query(std::string q,
+                std::vector<std::string> o = {},
+                std::vector<std::string> k = {}) {
+        question = q;
+        options = o;
+        keys = k;
+    }
 
-    Parameters:
-    
-        start (std::string) -- what is the question to be asked
-
-        opts (std::vector<<std::string>>) -- a vector containing strings for each option
-
-        key (std::vector<<std::string>>) -- a vector that contains corresponding strings
-                                          that the user must input for the options
-                                          (default: {})
-
-                                          If the key is an empty vector '{}', automatically 
-                                          set to 'opts'
-
-        say_options (bool) -- says "Options:" before each option if set to true.
-                              (default: true)
-     */
-    int query::new_query(std::string start, std::vector<std::string> opts, std::vector<std::string> key,
-                         bool say_options) {
-
-        /*
-        key is what must be typed to get a response, should
-        correspond with opts as they have not been merged into a map
-        */
+    void Query::Say(bool sayOptions = true, bool allowShortcuts = false) {
+        // say question
+        std::cout << question << '\n\n';
         
-        std::string user_input;
-
-        std::cout << start << std::string(2, '\n'); // output start, add specified new lines
-        
-        if (say_options) {
+        // states options if wanted
+        if (sayOptions) {
             std::cout << "Options:" << '\n';
+            for (const std::string &option : options) {
+                std::cout << "    - " << option << '\n';
+            }
         }
 
-        for (int i = 0; i < opts.size(); i++) {
-            std::cout << "    - " << opts[i] << '\n';
+        // gets input
+        std::cout << "Input: ";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(std::cin, input);
+
+        // converts input and options attributes to lowercase; uses shortcuts if on
+        mInput = input;
+        if (allowShortcuts) {
+            mInput = mInput.at(0);
         }
-
-        std::cout << "\n: ";
-        std::cin >> user_input;
-        clear_cin();
-
-        input = user_input; // input is an attribute of this query
-
-        for (char &c : user_input) {
+        for (char &c : mInput) {
             c = std::tolower(c);
         }
-
-        if (key.size() == 0) {
-            key = opts;
-        }
-
-        for (int i = 0; i < opts.size(); i++) {
-            std::string current_option = key[i];
-            
-            for (char &c : current_option) {
+        mOptions = options;
+        for (std::string &option : mOptions) {
+            if (allowShortcuts) {
+                option = option.at(0);
+            }
+            for (char &c : option) {
                 c = std::tolower(c);
             }
-            
-            if (user_input == current_option) {
-                input_number = i + 1;
-            }
         }
 
-        return input_number;
+        // if keys hasn't been defined, set it to 'options' vector
+        if (keys.empty()) {
+            mKeys = options;
+        } else {
+            mKeys = keys;
+        }
+
+        // finally converts keys attribute to lowercase; uses shortcuts if on
+        // also sets answer if key is input
+        int i = 0;
+        for (std::string &key : mKeys) {
+            if (allowShortcuts) {
+                key = key.at(0);
+            }
+            for (char &c : key) {
+                c = std::tolower(c);
+            }
+
+            if (mInput == key) {
+                answer = keys.at(i);
+            }
+            i++;
+        }
     }
 
     // Clears std::cin buffer
@@ -105,12 +110,6 @@ namespace misc {
         if (!std::cin) {
             std::cin.clear();
         }
-
-        if (std::cin.peek() == '\n') {
-            std::cin.get();
-            return;
-        }
-
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
