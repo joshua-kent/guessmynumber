@@ -11,12 +11,11 @@
 
 
 // user selection when the program starts
-int start() {
+std::string start() {
     std::stringstream welcome_string;
     welcome_string << "Welcome to Guess My Number, version " << GMN_VERSION;
 
-    misc::query start_query;
-    int ans = start_query.new_query(welcome_string.str(),
+    misc::Query StartQuery(welcome_string.str(),
                                     {
                                         "Play",
                                         "Help",
@@ -29,7 +28,8 @@ int start() {
                                         "version",
                                         "quit"
                                     });
-    return ans;
+    StartQuery.Say();
+    return StartQuery.answer;
 }
 
 #endif

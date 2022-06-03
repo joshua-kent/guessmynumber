@@ -16,7 +16,7 @@
 namespace misc {
 
     class query;
-    void clear_cin();
+    void ClearCin();
     void sleep(unsigned int);
     void petc(unsigned int);
     void clear();
@@ -29,7 +29,7 @@ namespace misc {
             std::string input, question, answer;
             std::vector<std::string> options;
             std::vector<std::string> keys;
-            void Say(bool, bool);
+            int Say(bool, bool);
             Query(std::string, std::vector<std::string>, std::vector<std::string>);
         private:
             std::string mInput;
@@ -45,9 +45,9 @@ namespace misc {
         keys = k;
     }
 
-    void Query::Say(bool sayOptions = true, bool allowShortcuts = false) {
+    int Query::Say(bool sayOptions = true, bool allowShortcuts = false) {
         // say question
-        std::cout << question << '\n\n';
+        std::cout << question << "\n\n";
         
         // states options if wanted
         if (sayOptions) {
@@ -59,8 +59,15 @@ namespace misc {
 
         // gets input
         std::cout << "Input: ";
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::getline(std::cin, input);
+        //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        //std::getline(std::cin, input);
+        std::cin >> input;
+
+        // if there is no options, set answer to input and exit
+        if (options.empty()) {
+            answer = input;
+            return 0;
+        }
 
         // converts input and options attributes to lowercase; uses shortcuts if on
         mInput = input;
@@ -103,10 +110,11 @@ namespace misc {
             }
             i++;
         }
+        return 0;
     }
 
     // Clears std::cin buffer
-    void clear_cin() {
+    void ClearCin() {
         if (!std::cin) {
             std::cin.clear();
         }
@@ -120,8 +128,8 @@ namespace misc {
 
     // Displays a 'Press enter to continue' message in terminal.
     void petc() {
+        ClearCin();
         std::cout << "\nPress enter to continue...";
-        clear_cin();
     }
 
     // Clears the terminal screen
