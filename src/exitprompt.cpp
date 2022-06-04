@@ -1,14 +1,10 @@
-#ifndef EXIT_PROMPT_H
-#define EXIT_PROMPT_H
-
-
 #include <iostream>
 #include <string>
 
-#include "misc.hpp"
+#include "include/misc.hpp"
 // TODO: create an actual exit prompt (confirm exit)
 
-int exit() {
+int exitprompt() {
     std::string answer;
 
     misc::clear();
@@ -26,8 +22,6 @@ int exit() {
     } else if (answer == "no" || answer == "n") {
         return 0; // no
     } else {
-        return exit(); // ask again
+        return exitprompt(); // ask again
     }
 }
-
-#endif

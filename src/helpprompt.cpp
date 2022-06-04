@@ -1,9 +1,5 @@
-#ifndef HELP_PROMPT_H
-#define HELP_PROMPT_H
-
 #include <iostream>
-
-#include "misc.hpp"
+#include "include/misc.hpp"
 
 int help() {
    misc::clear();
@@ -23,5 +19,3 @@ int help() {
 
    return 0;
 }
-
-#endif

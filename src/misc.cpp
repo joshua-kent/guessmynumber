@@ -1,8 +1,3 @@
-/* miscellaneous definitions */
-
-#ifndef MISC_H
-#define MISC_H
-
 #include <iostream>
 #include <cstdlib>
 #include <cstdarg>
@@ -14,11 +9,6 @@
 
 
 namespace misc {
-    void clearCin();
-    void sleep(unsigned int);
-    void petc(unsigned int);
-    void clear();
-
     // Clears std::cin buffer
     void clearCin() {
         if (!std::cin) {
@@ -29,7 +19,7 @@ namespace misc {
     }
 
     // Sleeps for some amount of milliseconds
-    void sleep(unsigned int ms = 2000) {
+    void sleep(unsigned int ms) {
         std::this_thread::sleep_for(std::chrono::milliseconds(ms));
     }
 
@@ -50,5 +40,3 @@ namespace misc {
     }
 
 }
-
-#endif

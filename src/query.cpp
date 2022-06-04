@@ -1,26 +1,11 @@
-#ifndef QUERY_HPP
-#define QUERY_HPP
-
 #include <iostream>
 #include <vector>
 
-class Query {
-    public:
-        std::string input, question, answer;
-        std::vector<std::string> options;
-        std::vector<std::string> keys;
-        int Say(bool, bool, bool);
-        Query(std::string, std::vector<std::string>, std::vector<std::string>);
-    private:
-        /* these are to be changed to lowercase, while keeping actual input and keys
-        attributes the originals */
-        std::string mInput;
-        std::vector<std::string> mKeys;
-};
+#include "include/query.hpp"
 
 Query::Query(std::string q,
-            std::vector<std::string> o = {},
-            std::vector<std::string> k = {}) {
+            std::vector<std::string> o,
+            std::vector<std::string> k) {
     question = q;
     options = o;
     keys = k;
@@ -31,7 +16,7 @@ If keys is not specified, it is assumed to be equivalent to options.
 Currently, this is never case sensitive.
 If the user input is not in the given key, then it is returned as in its lowercase form.
 */
-int Query::Say(bool sayOptions = true, bool allowShortcuts = false, bool allowIndices = true) {
+int Query::Say(bool sayOptions, bool allowShortcuts, bool allowIndices) {
     // say question
     std::cout << question << "\n\n";
     
@@ -109,5 +94,3 @@ int Query::Say(bool sayOptions = true, bool allowShortcuts = false, bool allowIn
     }
     return 0;
 }
-
-#endif

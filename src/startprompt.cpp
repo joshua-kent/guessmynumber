@@ -1,20 +1,17 @@
-#ifndef START_PROMPT_H
-#define START_PROMPT_H
-
 #include <iostream> // cout
 #include <cctype> // tolower
 #include <sstream> // stringstream
 #include <string> // string
 
-#include "query.hpp"
-#include "misc.hpp"
-#include "version.hpp"
+#include "include/query.hpp"
+#include "include/misc.hpp"
+#include "include/version.hpp"
 
 
 // user selection when the program starts
 std::string start() {
     std::stringstream welcome_string;
-    welcome_string << "Welcome to Guess My Number, version " << GMN_VERSION;
+    welcome_string << "Welcome to Guess My Number, version " << VERSION;
 
     Query StartQuery(welcome_string.str(),
                     {
@@ -26,5 +23,3 @@ std::string start() {
     StartQuery.Say(true, true, true);
     return StartQuery.answer;
 }
-
-#endif
