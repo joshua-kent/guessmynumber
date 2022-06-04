@@ -22,14 +22,8 @@ std::string start() {
                         "Help",
                         "Version",
                         "Quit"
-                    },
-                    {
-                        "play",
-                        "help",
-                        "version",
-                        "quit"
                     });
-    StartQuery.Say();
+    StartQuery.Say(true, true, true);
     return StartQuery.answer;
 }
 
