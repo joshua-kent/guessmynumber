@@ -7,9 +7,10 @@ Guess My Number (console version)
 #include <iostream> // cout
 #include <cstdlib> // system
 
+#include "headers/play.hpp"
 #include "headers/startprompt.hpp"
 #include "headers/helpprompt.hpp"
-#include "headers/play.hpp"
+#include "headers/exitprompt.hpp"
 #include "headers/version.hpp"
 #include "headers/misc.hpp"
 
@@ -29,6 +30,7 @@ int main() {
         version();
         return main();
     } else if (startOption == "quit" || startOption == "exit") {
+        exit();
         return 0;
     } else {
         return main();
