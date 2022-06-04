@@ -21,17 +21,21 @@ int main() {
     std::string startOption = start(); // initiate start menu, get response
 
     // decide what to do based on the user's response
-    if (startOption == "play") {
+    if (startOption == "Play") {
         return play();
-    } else if (startOption == "help") {
+    } else if (startOption == "Help") {
         help();
         return main();
-    } else if (startOption == "version") {
+    } else if (startOption == "Version") {
         version();
         return main();
-    } else if (startOption == "quit" || startOption == "exit") {
-        exit();
-        return 0;
+    } else if (startOption == "Quit" || startOption == "exit") {
+        int confirmExit = exit();
+        if (confirmExit) {
+            return 0;
+        } else {
+            return main();
+        }
     } else {
         return main();
     }
