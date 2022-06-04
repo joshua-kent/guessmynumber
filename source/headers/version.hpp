@@ -6,10 +6,10 @@
 #define PROGRAMTYPE "console" // whether run in console or window
 
 // version info
-#define GMN_VERSION "1.0.3" // Guess My Number Version
+#define GMN_VERSION "1.1" // Guess My Number Version
 #define GMN_AUTHOR "Joshua Kent" // author
 #define UPDATE_DATE "2022-06-04" // date when last updated
-#define UPDATE_TIME "16:27" // time when last updated
+#define UPDATE_TIME "18:49" // time when last updated
 
 int version() {
     misc::clear();
