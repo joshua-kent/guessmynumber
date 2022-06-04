@@ -6,8 +6,9 @@
 #include <sstream> // stringstream
 #include <string> // string
 
-#include "version.hpp"
+#include "query.hpp"
 #include "misc.hpp"
+#include "version.hpp"
 
 
 // user selection when the program starts
@@ -15,19 +16,19 @@ std::string start() {
     std::stringstream welcome_string;
     welcome_string << "Welcome to Guess My Number, version " << GMN_VERSION;
 
-    misc::Query StartQuery(welcome_string.str(),
-                                    {
-                                        "Play",
-                                        "Help",
-                                        "Version",
-                                        "Quit"
-                                    },
-                                    {
-                                        "play",
-                                        "help",
-                                        "version",
-                                        "quit"
-                                    });
+    Query StartQuery(welcome_string.str(),
+                    {
+                        "Play",
+                        "Help",
+                        "Version",
+                        "Quit"
+                    },
+                    {
+                        "play",
+                        "help",
+                        "version",
+                        "quit"
+                    });
     StartQuery.Say();
     return StartQuery.answer;
 }

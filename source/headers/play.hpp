@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <sstream>
-#include <cstdlib>
+// #include <cstdlib>
 #include <ctime>
 
 #include "misc.hpp"
+#include "query.hpp"
 
 
 // main game
@@ -22,23 +23,23 @@ int play() {
 
     misc::clear();
     
-    misc::Query DifficultyQuery("What difficulty do you want?",
-                                {
-                                    "Easiest (1 - 10)",
-                                    "Easy (1 - 100)",
-                                    "Medium (1 - 500)",
-                                    "Difficult (1 - 1,000)",
-                                    "Insane (1 - 1,000,000)",
-                                    "Quit"
-                                },
-                                {
-                                    "easiest",
-                                    "easy",
-                                    "medium",
-                                    "difficult",
-                                    "insane",
-                                    "quit"
-                                });
+    Query DifficultyQuery("What difficulty do you want?",
+                        {
+                            "Easiest (1 - 10)",
+                            "Easy (1 - 100)",
+                            "Medium (1 - 500)",
+                            "Difficult (1 - 1,000)",
+                            "Insane (1 - 1,000,000)",
+                            "Quit"
+                        },
+                        {
+                            "easiest",
+                            "easy",
+                            "medium",
+                            "difficult",
+                            "insane",
+                            "quit"
+                        });
     DifficultyQuery.Say();
     std::string difficulty = DifficultyQuery.answer;
 
@@ -71,7 +72,7 @@ int play() {
         // ask user to guess
         ask << "Guess my number! " << "(1 - " << max << ")"
         << "\nAttempts: " << attempts;
-        misc::Query UserGuess(ask.str());
+        Query UserGuess(ask.str());
         UserGuess.Say(false);
 
         if (UserGuess.answer == "quit" || UserGuess.answer == "exit") {
