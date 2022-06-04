@@ -1,7 +1,7 @@
 /* miscellaneous definitions */
 
-#ifndef MISC_H
-#define MISC_H
+#ifndef MISC_HPP
+#define MISC_HPP
 
 namespace misc {
     void clearCin();

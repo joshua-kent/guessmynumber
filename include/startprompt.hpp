@@ -1,5 +1,5 @@
-#ifndef START_PROMPT_H
-#define START_PROMPT_H
+#ifndef START_PROMPT_HPP
+#define START_PROMPT_HPP
 
 #include <string>
 

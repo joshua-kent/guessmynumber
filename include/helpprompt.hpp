@@ -1,5 +1,5 @@
-#ifndef HELP_PROMPT_H
-#define HELP_PROMPT_H
+#ifndef HELP_PROMPT_HPP
+#define HELP_PROMPT_HPP
 
 int help();
 
