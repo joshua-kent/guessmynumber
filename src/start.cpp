@@ -1,10 +1,10 @@
 #include <sstream>
-#include "include/query.hpp"
-#include "include/version.hpp"
-#include "include/helpprompt.hpp"
-#include "include/exitprompt.hpp"
-#include "include/misc.hpp"
-#include "include/difficulty.hpp"
+#include "query.hpp"
+#include "version.hpp"
+#include "helpprompt.hpp"
+#include "exitprompt.hpp"
+#include "misc.hpp"
+#include "difficulty.hpp"
 
 int start() {
     misc::clear();

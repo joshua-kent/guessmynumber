@@ -1,5 +1,5 @@
 #include <iostream>
-#include "include/misc.hpp"
+#include "misc.hpp"
 
 int help() {
    misc::clear();

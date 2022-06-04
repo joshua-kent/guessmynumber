@@ -2,9 +2,9 @@
 #include <ctime>
 #include <sstream>
 
-#include "include/misc.hpp"
-#include "include/query.hpp"
-#include "include/exitprompt.hpp"
+#include "misc.hpp"
+#include "query.hpp"
+#include "exitprompt.hpp"
 
 // main game
 int play(int minGuess, int maxGuess) {

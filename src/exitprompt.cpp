@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "include/misc.hpp"
+#include "misc.hpp"
 // TODO: create an actual exit prompt (confirm exit)
 
 int exitprompt() {

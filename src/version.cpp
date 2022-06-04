@@ -1,5 +1,5 @@
-#include "include/misc.hpp"
-#include "include/version.hpp"
+#include "misc.hpp"
+#include "version.hpp"
 #include <iostream>
 
 int version() {

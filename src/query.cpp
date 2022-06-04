@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "include/query.hpp"
+#include "query.hpp"
 
 Query::Query(std::string q,
             std::vector<std::string> o,

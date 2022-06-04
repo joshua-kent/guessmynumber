@@ -3,9 +3,9 @@
 #include <sstream> // stringstream
 #include <string> // string
 
-#include "include/query.hpp"
-#include "include/misc.hpp"
-#include "include/version.hpp"
+#include "query.hpp"
+#include "misc.hpp"
+#include "version.hpp"
 
 
 // user selection when the program starts

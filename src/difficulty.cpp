@@ -1,10 +1,10 @@
 #include <string>
 
-#include "include/misc.hpp"
-#include "include/query.hpp"
-#include "include/exitprompt.hpp"
-#include "include/difficulty.hpp"
-#include "include/gameloop.hpp"
+#include "misc.hpp"
+#include "query.hpp"
+#include "exitprompt.hpp"
+#include "difficulty.hpp"
+#include "gameloop.hpp"
 
 int difficultyPrompt() {
     int minGuess = 1, maxGuess;

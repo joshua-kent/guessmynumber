@@ -14,5 +14,5 @@ How to compile
 Compile using g++
 ```
 cd guessmynumber
-g++ source/main.cpp -o guessmynumber
+g++ -I ./include ./src/*.cpp
 ```
