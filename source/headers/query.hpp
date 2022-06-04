@@ -12,8 +12,9 @@ class Query {
         int Say(bool, bool, bool);
         Query(std::string, std::vector<std::string>, std::vector<std::string>);
     private:
+        /* these are to be changed to lowercase, while keeping actual input and keys
+        attributes the originals */
         std::string mInput;
-        std::vector<std::string> mOptions;
         std::vector<std::string> mKeys;
 };
 
@@ -25,6 +26,11 @@ Query::Query(std::string q,
     keys = k;
 }
 
+/*
+If keys is not specified, it is assumed to be equivalent to options.
+Currently, this is never case sensitive.
+If the user input is not in the given key, then it is returned as in its lowercase form.
+*/
 int Query::Say(bool sayOptions = true, bool allowShortcuts = false, bool allowIndices = true) {
     // say question
     std::cout << question << "\n\n";
@@ -39,14 +45,26 @@ int Query::Say(bool sayOptions = true, bool allowShortcuts = false, bool allowIn
 
     // gets input
     std::cout << "Input: ";
-    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    //std::getline(std::cin, input);
     std::cin >> input;
 
-    // if there is no options, set answer to input and exit
+    // converts input to lowercase
+    mInput = input;
+    for (char &c : mInput) {
+        c = std::tolower(c);
+    }
+
+    // if there is no options, set answer to mInput and exit
     if (options.empty()) {
-        answer = input;
+        answer = mInput;
         return 0;
+    }
+
+    // if keys hasn't been defined, set it to 'options' vector
+    if (keys.empty()) {
+        keys = options;
+        mKeys = keys;
+    } else {
+        mKeys = keys;
     }
 
     // checks if input is an index; if it is, then answer is set to relevant index
@@ -60,46 +78,34 @@ int Query::Say(bool sayOptions = true, bool allowShortcuts = false, bool allowIn
         } catch (std::invalid_argument) {}
     }
 
-    // converts input and options attributes to lowercase; uses shortcuts if on
-    mInput = input;
-    if (allowShortcuts) {
-        mInput = mInput.at(0);
-    }
-    for (char &c : mInput) {
-        c = std::tolower(c);
-    }
-    mOptions = options;
-    for (std::string &option : mOptions) {
-        if (allowShortcuts) {
-            option = option.at(0);
-        }
-        for (char &c : option) {
-            c = std::tolower(c);
-        }
-    }
-
-    // if keys hasn't been defined, set it to 'options' vector
-    if (keys.empty()) {
-        mKeys = options;
-    } else {
-        mKeys = keys;
-    }
-
-    // finally converts keys attribute to lowercase; uses shortcuts if on
+    // finally converts mKeys attribute to lowercase; uses shortcuts if on
     // also sets answer if key is input
     int i = 0;
     for (std::string &key : mKeys) {
-        if (allowShortcuts) {
-            key = key.at(0);
-        }
+        // converts key to lowercase
         for (char &c : key) {
             c = std::tolower(c);
         }
-
+        // checks if key is equal to input, if it is then change answer and break
         if (mInput == key) {
             answer = keys.at(i);
+            break;
         }
+        // if allow shortcuts is on, check if input is a shortcut to this key
+        if (allowShortcuts) {
+            // makes sure mInput is a single character (eg, so 'pl' is not a shortcut for 'play')
+            if (mInput.length() == 1) {
+                if (mInput.at(0) == key.at(0)) {
+                    answer = keys.at(i);
+                    break;
+                }
+            }
+        }
+        
         i++;
+    }
+    if (answer.length() == 0) {
+        answer = mInput;
     }
     return 0;
 }
