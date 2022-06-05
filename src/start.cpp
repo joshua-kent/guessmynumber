@@ -6,7 +6,7 @@
 #include "misc.hpp"
 #include "difficulty.hpp"
 
-int start() {
+int main() {
     misc::clear();
 
     std::stringstream welcome_string;
@@ -26,18 +26,18 @@ int start() {
         return difficultyPrompt();
     } else if (StartQuery.answer == "Help") {
         help();
-        return start();
+        return main();
     } else if (StartQuery.answer == "Version") {
         version();
-        return start();
+        return main();
     } else if (StartQuery.answer == "Quit" || StartQuery.answer == "exit") {
         int confirmExit = exitprompt();
         if (confirmExit) {
             return 0;
         } else {
-            return start();
+            return main();
         }
     } else {
-        return start();
+        return main();
     }
 }
