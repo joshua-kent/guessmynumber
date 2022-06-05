@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <sstream>
+#include <cstdlib>
 
 #include "misc.hpp"
 #include "query.hpp"
