@@ -1,6 +1,7 @@
+#include <iostream>
+
 #include "misc.hpp"
 #include "version.hpp"
-#include <iostream>
 
 int version() {
     misc::clear();

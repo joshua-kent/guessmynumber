@@ -1,4 +1,5 @@
 #include <sstream>
+
 #include "query.hpp"
 #include "version.hpp"
 #include "helpprompt.hpp"
