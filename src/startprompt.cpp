@@ -1,7 +1,5 @@
-#include <iostream> // cout
-#include <cctype> // tolower
-#include <sstream> // stringstream
-#include <string> // string
+#include <sstream>
+#include <string>
 
 #include "query.hpp"
 #include "misc.hpp"
